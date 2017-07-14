@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import <Intents/Intents.h>
 
 @interface AppDelegate ()
 
@@ -47,5 +48,18 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
+- (BOOL)application:(UIApplication *)application willFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    return NO;
+}
+    
+- (BOOL)application:(UIApplication *)application
+   continueUserActivity:(NSUserActivity *)userActivity
+ restorationHandler:(void (^)(NSArray *restorableObjects))restorationHandler {
+    if ([userActivity.interaction.intent isKindOfClass:[INSendMessageIntent class]]) {
+        INSendMessageIntent *intent = (INSendMessageIntent *)(userActivity.interaction.intent);
+        NSLog(@"%@",[[intent.recipients lastObject] displayName]);
+    }
+    return YES;
+}
 
 @end

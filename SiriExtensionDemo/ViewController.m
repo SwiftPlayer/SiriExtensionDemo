@@ -10,19 +10,22 @@
 
 @interface ViewController ()
 
+@property (weak , nonatomic) IBOutlet UIWebView *webView;
+
 @end
 
 @implementation ViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
+    NSString *filePath = [[NSBundle mainBundle] pathForResource:@"SiriKit" ofType:@"html"];
+    NSString *htmlStr = [NSString stringWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:nil];
+    [self.webView loadHTMLString:htmlStr baseURL:[NSURL URLWithString:filePath]];
 }
 
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 
